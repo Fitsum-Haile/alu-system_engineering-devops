@@ -1,0 +1,19 @@
+#!/bin/bash
+
+# Update package lists
+sudo apt-get update -y
+
+# Install Nginx
+sudo apt-get install nginx -y
+
+# Set up a custom HTML page for Nginx
+echo "Holberton School for the win!" | sudo tee /var/www/html/index.nginx-debian.html > /dev/null
+
+# Start Nginx (without systemctl)
+sudo service nginx start
+
+# Ensure Nginx restarts if needed (without systemctl)
+sudo service nginx restart
+
+# Adjust firewall to allow HTTP traffic (port 80)
+sudo ufw allow 'Nginx HTTP'
