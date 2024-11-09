@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+# This script installs and configures HAProxy for load balancing on a new Ubuntu server
+
+sudo apt update
+sudo apt install -y haproxy
+
+sudo tee -a /etc/haproxy/haproxy.cfg > /dev/null <<EOT
+
+frontend http_front
+    bind *:80
+    default_backend http_back
+
+backend http_back
+    balance roundrobin
+    server web01 54.196.148.122:80 check
+    server web02 54.163.26.229:80 check
+EOT
+
+sudo systemctl restart haproxy
+sudo systemctl enable haproxy
