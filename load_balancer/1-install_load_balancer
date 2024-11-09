@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
-# This script installs and configures HAProxy to load balance between web-01 and web-02 using roundrobin
+# This script configures a new Ubuntu machine to install and configure HAProxy
 
-# Update and install HAProxy
-sudo apt-get update -y
+# Update package list and install HAProxy
+sudo apt-get update
 sudo apt-get install -y haproxy
 
 # Configure HAProxy
-sudo tee /etc/haproxy/haproxy.cfg > /dev/null <<EOF
+cat <<EOT > /etc/haproxy/haproxy.cfg
 global
     log /dev/log    local0
     log /dev/log    local1 notice
@@ -36,8 +36,10 @@ backend app
     balance roundrobin
     server web-01 54.196.148.122:80 check
     server web-02 54.163.26.229:80 check
-EOF
+EOT
 
 # Restart HAProxy service
 sudo systemctl restart haproxy
-sudo systemctl enable haproxy
+
+# Output to confirm the backend servers
+echo "HAProxy is configured to balance between web-01 and web-02"
