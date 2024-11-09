@@ -34,8 +34,8 @@ frontend fitsumtech
 backend app
     mode http
     balance roundrobin
-    server 6296-web-01 54.196.148.122:80 check
-    server 6296-web-02 54.163.26.229:80 check
+    server web-01 54.196.148.122:80 check
+    server web-02 54.163.26.229:80 check
 EOF
 
 # Restart HAProxy service
