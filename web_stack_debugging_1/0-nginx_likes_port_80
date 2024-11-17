@@ -1,11 +1,16 @@
 #!/usr/bin/env bash
 # This script ensures Nginx is installed, running, and listening on port 80
 
+# Update package list and install Nginx
 apt-get update -y
 apt-get install -y nginx
 
-# Restart Nginx to ensure changes take effect
+# Configure Nginx to listen on all active IPv4 addresses
+sed -i '/listen \[::\]:80 default_server;/a\    listen 80;' /etc/nginx/sites-available/default
+
+# Restart Nginx to apply changes
 service nginx restart
 
-# Verify Nginx is running and returning a proper HTTP response
-curl -s -o /dev/null -w "%{http_code}" localhost
+# Perform two curl requests to test response
+echo "$(curl -s -o /dev/null -w "%{http_code}" 0:80)"
+echo "$(curl -s -o /dev/null -w "%{http_code}" 0:80)"
