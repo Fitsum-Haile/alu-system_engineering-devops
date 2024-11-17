@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 # Fix Nginx configuration and simulate "not running" status
-rm /run/nginx.pid
 ln -sf /etc/nginx/sites-available/default /etc/nginx/sites-enabled/
-service nginx start
-kill "$(cat /run/nginx.pid)"
-
+rm -f /run/nginx.pid
+service nginx start && kill "$(cat /run/nginx.pid)"
