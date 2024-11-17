@@ -3,4 +3,9 @@
 
 apt-get update -y
 apt-get install -y nginx
+
+# Restart Nginx to ensure changes take effect
 service nginx restart
+
+# Verify Nginx is running and returning a proper HTTP response
+curl -s -o /dev/null -w "%{http_code}" localhost
