@@ -35,5 +35,5 @@ service nginx restart
 
 # Verify the changes
 echo "Verifying Nginx process and port..."
-ps aux | grep '[n]ginx'
+pgrep -a nginx
 netstat -anp | grep ":8080"
